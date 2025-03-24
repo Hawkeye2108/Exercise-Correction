@@ -3,7 +3,6 @@
 import os
 import sys
 
-
 def main():
     """Run administrative tasks."""
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "exercise_correction.settings")
@@ -15,8 +14,10 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
-    execute_from_command_line(sys.argv)
 
+    # Ensure the server binds to the correct port from the environment
+    port = os.getenv('PORT', '8000')  # Default to 8000 if PORT is not set
+    execute_from_command_line([sys.argv[0], 'runserver', f'0.0.0.0:{port}'])
 
 if __name__ == "__main__":
     main()
